@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>สุ่มประโยค</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>สุ่มประโยค</h1>
+  <button id="randomSentence">สุ่มประโยค</button>
+  <label for="selectAmount">เลือกจำนวน: </label>
+  <select id="selectAmount">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+    <option value="25">25</option>
+    <option value="30">30</option>
+  </select>
+  <button id="start">เริ่ม</button>
+
+  <div id="resultContainer">
+    <label><input type="checkbox" id="showPronunciation"> แสดงคำอ่าน</label>
+    <label><input type="checkbox" id="showMeaning"> แสดงความหมาย</label>
+    <div id="sentences"></div>
+    <button id="refresh">รีเฟรช</button>
+    <button id="backToMain">กลับหน้าแรก</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
