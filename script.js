@@ -39,9 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 rows.forEach(([word, pronunciation, meaning]) => {
                     const li = document.createElement("li");
                     li.textContent = word;
+                    li.dataset.pronunciation = pronunciation;
+                    li.dataset.meaning = meaning;
+
                     li.addEventListener("click", () => speakWord(word));
                     wordList.appendChild(li);
                 });
+
+                updateWordList();
             });
 
         function speakWord(word) {
@@ -50,6 +55,25 @@ document.addEventListener("DOMContentLoaded", () => {
             utterance.lang = "en-US";
             synth.speak(utterance);
         }
+
+        function updateWordList() {
+            const showPronunciation = document.getElementById("showPronunciation").checked;
+            const showMeaning = document.getElementById("showMeaning").checked;
+
+            document.querySelectorAll("#wordList li").forEach(li => {
+                li.innerHTML = li.dataset.word;
+
+                if (showPronunciation) {
+                    li.innerHTML += ` <br><small style="color: gray;">(${li.dataset.pronunciation})</small>`;
+                }
+                if (showMeaning) {
+                    li.innerHTML += ` <br><small style="color: green;">${li.dataset.meaning}</small>`;
+                }
+            });
+        }
+
+        document.getElementById("showPronunciation").addEventListener("change", updateWordList);
+        document.getElementById("showMeaning").addEventListener("change", updateWordList);
 
         document.getElementById("refreshBtn").addEventListener("click", () => {
             location.reload();
