@@ -1,77 +1,62 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const randomSentenceBtn = document.getElementById('randomSentence');
-  const selectAmount = document.getElementById('selectAmount');
-  const startBtn = document.getElementById('start');
-  const resultContainer = document.getElementById('resultContainer');
-  const showPronunciation = document.getElementById('showPronunciation');
-  const showMeaning = document.getElementById('showMeaning');
-  const sentencesDiv = document.getElementById('sentences');
-  const refreshBtn = document.getElementById('refresh');
-  const backToMainBtn = document.getElementById('backToMain');
+document.addEventListener("DOMContentLoaded", () => {
+    const randomizeBtn = document.getElementById("randomizeBtn");
+    const startBtn = document.getElementById("startBtn");
+    const quantitySelect = document.getElementById("quantity");
 
-  let isRandom = false;
-  let numOfSentences = 5;
+    let isRandom = false;
 
-  randomSentenceBtn.addEventListener('click', function () {
-    isRandom = true;
-    randomSentenceBtn.style.backgroundColor = 'green';
-  });
+    if (randomizeBtn) {
+        randomizeBtn.addEventListener("click", () => {
+            isRandom = !isRandom;
+            randomizeBtn.style.backgroundColor = isRandom ? "green" : "";
+        });
+    }
 
-  selectAmount.addEventListener('change', function () {
-    numOfSentences = parseInt(this.value, 10);
-  });
+    if (startBtn) {
+        startBtn.addEventListener("click", () => {
+            const quantity = quantitySelect.value;
+            window.location.href = `display.html?random=${isRandom}&quantity=${quantity}`;
+        });
+    }
 
-  startBtn.addEventListener('click', function () {
-    fetch('data.csv')
-      .then(response => response.text())
-      .then(data => {
-        const sentences = data.split('\n').slice(1);
-        let selectedSentences = [];
+    if (window.location.pathname.includes("display.html")) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const isRandom = urlParams.get("random") === "true";
+        const quantity = parseInt(urlParams.get("quantity"));
 
-        if (isRandom) {
-          for (let i = 0; i < numOfSentences; i++) {
-            const randomIndex = Math.floor(Math.random() * sentences.length);
-            selectedSentences.push(sentences[randomIndex]);
-          }
-        } else {
-          selectedSentences = sentences.slice(0, numOfSentences);
+        fetch("words.csv")
+            .then(response => response.text())
+            .then(data => {
+                let rows = data.split("\n").map(row => row.split(","));
+                if (isRandom) {
+                    rows = rows.sort(() => Math.random() - 0.5);
+                }
+                rows = rows.slice(0, quantity);
+
+                const wordList = document.getElementById("wordList");
+                wordList.innerHTML = "";
+
+                rows.forEach(([word, pronunciation, meaning]) => {
+                    const li = document.createElement("li");
+                    li.textContent = word;
+                    li.addEventListener("click", () => speakWord(word));
+                    wordList.appendChild(li);
+                });
+            });
+
+        function speakWord(word) {
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = "en-US";
+            synth.speak(utterance);
         }
 
-        displaySentences(selectedSentences);
-      });
-  });
+        document.getElementById("refreshBtn").addEventListener("click", () => {
+            location.reload();
+        });
 
-  refreshBtn.addEventListener('click', function () {
-    startBtn.click();
-  });
-
-  backToMainBtn.addEventListener('click', function () {
-    resultContainer.style.display = 'none';
-  });
-
-  function displaySentences(sentences) {
-    sentencesDiv.innerHTML = '';
-    sentences.forEach(sentence => {
-      const parts = sentence.split(',');
-
-      const sentenceDiv = document.createElement('div');
-      sentenceDiv.textContent = parts[0];
-
-      if (showPronunciation.checked) {
-        const pronunciationDiv = document.createElement('div');
-        pronunciationDiv.textContent = `คำอ่าน: ${parts[1]}`;
-        sentenceDiv.appendChild(pronunciationDiv);
-      }
-
-      if (showMeaning.checked) {
-        const meaningDiv = document.createElement('div');
-        meaningDiv.textContent = `ความหมาย: ${parts[2]}`;
-        sentenceDiv.appendChild(meaningDiv);
-      }
-
-      sentencesDiv.appendChild(sentenceDiv);
-    });
-
-    resultContainer.style.display = 'block';
-  }
+        document.getElementById("backBtn").addEventListener("click", () => {
+            window.location.href = "index.html";
+        });
+    }
 });
