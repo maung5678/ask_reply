@@ -1,46 +1,22 @@
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin-top: 50px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
+button, select {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
 }
 
-button, .dummy-button, select {
-  width: 200px;
-  height: 50px;
-  font-size: 20px;
-  margin: 10px;
-  padding: 10px 20px;
+ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-button {
-  background-color: orange;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
-button:active {
-  background-color: green;
-}
-
-.dummy-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: lightgray;
-}
-
-#resultContainer {
-  display: none;
-  margin-top: 20px;
-}
-
-#sentences {
-  margin-top: 20px;
+li {
+    margin: 10px 0;
+    cursor: pointer;
+    color: blue;
 }
