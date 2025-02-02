@@ -1,35 +1,29 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>สุ่มประโยค</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สุ่มประโยค</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>สุ่มประโยค</h1>
-  <h2>เวอร์ชั่น 1.2</h2>
-  <div class="button-container">
-    <button id="randomSentence">สุ่มประโยค</button>
-    <div class="dummy-button">เลือกจำนวน</div>
-    <select id="selectAmount">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="15">15</option>
-      <option value="20">20</option>
-      <option value="25">25</option>
-      <option value="30">30</option>
+
+    <h1>สุ่มประโยค</h1>
+
+    <button id="randomizeBtn">สุ่มประโยค</button>
+    
+    <label for="quantity">เลือกจำนวน:</label>
+    <select id="quantity">
+        <option value="5" selected>5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
     </select>
-    <button id="start">เริ่ม</button>
-  </div>
 
-  <div id="resultContainer">
-    <label><input type="checkbox" id="showPronunciation"> แสดงคำอ่าน</label>
-    <label><input type="checkbox" id="showMeaning"> แสดงความหมาย</label>
-    <div id="sentences"></div>
-    <button id="refresh">รีเฟรช</button>
-    <button id="backToMain">กลับหน้าแรก</button>
-  </div>
+    <button id="startBtn">เริ่ม</button>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
