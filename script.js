@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   randomSentenceBtn.addEventListener('click', function () {
     isRandom = true;
+    randomSentenceBtn.style.backgroundColor = 'green';
   });
 
   selectAmount.addEventListener('change', function () {
@@ -21,11 +22,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   startBtn.addEventListener('click', function () {
-    // Load data from CSV and display sentences
     fetch('data.csv')
       .then(response => response.text())
       .then(data => {
-        const sentences = data.split('\n').slice(1); // Remove header
+        const sentences = data.split('\n').slice(1);
         let selectedSentences = [];
 
         if (isRandom) {
@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   refreshBtn.addEventListener('click', function () {
-    // Refresh with the same number of sentences
     startBtn.click();
   });
 
