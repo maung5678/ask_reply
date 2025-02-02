@@ -7,17 +7,20 @@
 </head>
 <body>
   <h1>สุ่มประโยค</h1>
-  <button id="randomSentence">สุ่มประโยค</button>
-  <label for="selectAmount">เลือกจำนวน: </label>
-  <select id="selectAmount">
-    <option value="5">5</option>
-    <option value="10">10</option>
-    <option value="15">15</option>
-    <option value="20">20</option>
-    <option value="25">25</option>
-    <option value="30">30</option>
-  </select>
-  <button id="start">เริ่ม</button>
+  <h2>เวอร์ชั่น 1.2</h2>
+  <div class="button-container">
+    <button id="randomSentence">สุ่มประโยค</button>
+    <div class="dummy-button">เลือกจำนวน</div>
+    <select id="selectAmount">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="25">25</option>
+      <option value="30">30</option>
+    </select>
+    <button id="start">เริ่ม</button>
+  </div>
 
   <div id="resultContainer">
     <label><input type="checkbox" id="showPronunciation"> แสดงคำอ่าน</label>
